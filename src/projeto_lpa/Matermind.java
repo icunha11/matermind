@@ -51,8 +51,8 @@ public class Matermind {
 		for (int i = 0; i<vetor.length; i++) {
 			System.out.println("Digite o número da posição " + (i+1) + ":");
 			int input = scanner.nextInt();
-			if (input < 0 || input > 6) {
-				System.out.println("Número inválido! Digite um número entre 0 e 6.");
+			if (input < 1 || input > 6) {
+				System.out.println("Número inválido! Digite um número entre 1 e 6.");
 				i--; // Decrementa i para repetir a leitura da posição atual
 			} else {
 			vetor[i] = input; 
@@ -64,7 +64,7 @@ public class Matermind {
 	public static int[] geradorDeSenha(int[] vetor) {
 		Random rand = new Random();
 		for (int i = 0; i<vetor.length; i++) {
-			vetor[i] = rand.nextInt(7);
+			vetor[i] = rand.nextInt(1,7);
 		}
 		
 		return vetor;
