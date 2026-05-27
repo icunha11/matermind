@@ -16,7 +16,7 @@ public class Matermind {
 		int corretos,deslocados;
 
 		while (tentativas>0){
-			senhaDigitada = lerSenha(senhaDigitada,scanner);
+			senhaDigitada = lerSenha(senhaDigitada,scanner,senhaGerada);
 			corretos = 0;
 			deslocados = 0;
 			for(int i=0; i<senhaDigitada.length; i++) {
@@ -47,15 +47,20 @@ public class Matermind {
 		System.out.println();
 	}
 
-	public static int[] lerSenha(int[] vetor,Scanner scanner) {
+	public static int[] lerSenha(int[] vetor,Scanner scanner,int[] senhaGerada) {
 		
 		for (int i = 0; i<vetor.length; i++) {
 			System.out.println("Digite o número da posição " + (i+1) + ":");
 			int input = scanner.nextInt();
+			if (input == 9999001) {
+				System.out.println("Cheat code ativado! A senha correta é:");
+				imprimirVetor(senhaGerada);
+			} 
 			if (input < 1 || input > 6) {
 				System.out.println("Número inválido! Digite um número entre 1 e 6.");
 				i--; // Decrementa i para repetir a leitura da posição atual
-			} else {
+			} 
+			else {
 				vetor[i] = input; 
 			}
 		}
