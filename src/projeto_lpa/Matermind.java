@@ -19,10 +19,6 @@ public class Matermind {
 			senhaDigitada = lerSenha(senhaDigitada,scanner);
 			corretos = 0;
 			deslocados = 0;
-			if (corretos == 4) {
-				System.out.println("Parabéns! Você acertou a senha e ganhou o jogo!");
-				break;
-			}
 			for(int i=0; i<senhaDigitada.length; i++) {
 				if (senhaDigitada[i] == senhaGerada[i]) {
 					corretos++;
@@ -30,6 +26,11 @@ public class Matermind {
 				else {
 					deslocados++;
 				}
+			}
+			if (corretos == 4) {
+				System.out.println("Parabéns! Você acertou a senha e ganhou o jogo! Senha correta: ");
+				imprimirVetor(senhaGerada);
+				break;
 			}
 			tentativas--;
 			System.out.println("Corretos: " + corretos);
@@ -55,7 +56,7 @@ public class Matermind {
 				System.out.println("Número inválido! Digite um número entre 1 e 6.");
 				i--; // Decrementa i para repetir a leitura da posição atual
 			} else {
-			vetor[i] = input; 
+				vetor[i] = input; 
 			}
 		}
 		
