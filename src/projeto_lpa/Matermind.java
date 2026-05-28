@@ -11,40 +11,60 @@ public class Matermind {
 		senhaGerada = geradorDeSenha(senhaGerada);
 
 		int[] senhaDigitada = new int[4];
-
 		int tentativas = 10;
-		int corretos,deslocados;
-
+		
 		while (tentativas>0){
 			senhaDigitada = lerSenha(senhaDigitada,scanner,senhaGerada);
-			corretos = 0;
-			deslocados = 0;
-			for(int i=0; i<senhaDigitada.length; i++) {
-				if (senhaDigitada[i] == senhaGerada[i]) {
-					corretos++;
-				}
-				else {
-					deslocados++;
-				}
-			}
-			if (corretos == 4) {
-				System.out.println("Parabéns! Você acertou a senha e ganhou o jogo! Senha correta: ");
-				imprimirVetor(senhaGerada);
+			if (!compare(senhaGerada, senhaDigitada)) {
+				tentativas--;
+				System.out.println("Tentativas restantes: " + tentativas);
+				System.out.println();
+			}else{
+				System.out.println("Parabéns! Você acertou a senha!");
 				break;
 			}
-			tentativas--;
-			System.out.println("Corretos: " + corretos);
-			System.out.println("Deslocados: " + deslocados);	
+			
 		}
-		System.out.println("Suas tentativas acabaram! A senha era: ");
-		imprimirVetor(senhaGerada);
+			
+		if (tentativas == 0) {
+			System.out.println("Suas tentativas acabaram! A senha era: ");
+			imprimirVetor(senhaGerada);
+		}
 		scanner.close();
 	}
-	public static void imprimirVetor(int[] vetor) {
-		for (int i = 0; i<vetor.length; i++) {
-			System.out.print(vetor[i] + " ");
+	public static boolean compare(int[] senhaGerada, int[] senhaDigitada) {
+		int corretos = 0, deslocados = 0;
+		String deslocado = arrayToString(senhaGerada).replaceAll(" ", "");
+		for (int i = 0; i<senhaGerada.length; i++) {
+			if (senhaDigitada[i] == senhaGerada[i]) {
+				deslocado = deslocado.replaceFirst(String.valueOf(senhaDigitada[i]), "0");
+				corretos++;
+			} 
 		}
-		System.out.println();
+		for(int i = 0; i<senhaGerada.length; i++){
+			if (deslocado.contains(String.valueOf(senhaDigitada[i])) ) {
+				System.out.println("Deslocado encontrado: " + senhaDigitada[i]);
+				deslocado = deslocado.replaceFirst(String.valueOf(senhaDigitada[i]), "0");
+				deslocados++;
+			}
+		}
+		System.out.println("Corretos: " + corretos);
+		System.out.println("Deslocados: " + deslocados);	
+		
+			
+
+		return corretos == 4;
+	}
+	public static String arrayToString(int[] vetor) {
+		String output = "";
+		for (int i = 0; i<vetor.length; i++) {
+			output += String.valueOf(vetor[i]) + " ";
+		}
+		return output;
+	}
+
+	public static void imprimirVetor(int[] vetor) {	
+		System.out.println(arrayToString(vetor));	
 	}
 
 	public static int[] lerSenha(int[] vetor,Scanner scanner,int[] senhaGerada) {
@@ -58,7 +78,7 @@ public class Matermind {
 			} 
 			if (input < 1 || input > 6) {
 				System.out.println("Número inválido! Digite um número entre 1 e 6.");
-				i--; // Decrementa i para repetir a leitura da posição atual
+				i--; 
 			} 
 			else {
 				vetor[i] = input; 
