@@ -43,7 +43,6 @@ public class Matermind {
 		}
 		for(int i = 0; i<senhaGerada.length; i++){
 			if (deslocado.contains(String.valueOf(senhaDigitada[i])) ) {
-				System.out.println("Deslocado encontrado: " + senhaDigitada[i]);
 				deslocado = deslocado.replaceFirst(String.valueOf(senhaDigitada[i]), "0");
 				deslocados++;
 			}
